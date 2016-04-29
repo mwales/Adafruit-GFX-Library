@@ -4,14 +4,19 @@
 #if ARDUINO >= 100
  #include "Arduino.h"
  #include "Print.h"
-#else
+#elseif ARDUINO < 100
  #include "WProgram.h"
 #endif
 
+#include "AdafruitCommon.h"
 #include "gfxfont.h"
+#include "Print.h"
 
-class Adafruit_GFX : public Print {
+namespace Adafruit
+{
 
+class Adafruit_GFX : public Print
+{
  public:
 
   Adafruit_GFX(int16_t w, int16_t h); // Constructor
@@ -71,11 +76,7 @@ class Adafruit_GFX : public Print {
     getTextBounds(const __FlashStringHelper *s, int16_t x, int16_t y,
       int16_t *x1, int16_t *y1, uint16_t *w, uint16_t *h);
 
-#if ARDUINO >= 100
   virtual size_t write(uint8_t);
-#else
-  virtual void   write(uint8_t);
-#endif
 
   int16_t height(void) const;
   int16_t width(void) const;
@@ -152,4 +153,5 @@ class GFXcanvas16 : public Adafruit_GFX {
   uint16_t *buffer;
 };
 
+}
 #endif // _ADAFRUIT_GFX_H

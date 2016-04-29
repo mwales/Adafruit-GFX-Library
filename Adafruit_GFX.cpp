@@ -31,26 +31,38 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <cstdlib>
+#include <algorithm>
+#include <iostream>
+#include "AdafruitCommon.h"
+
+
+
 #ifdef __AVR__
  #include <avr/pgmspace.h>
 #elif defined(ESP8266)
  #include <pgmspace.h>
 #endif
 #include "Adafruit_GFX.h"
-#include "glcdfont.c"
+#include "glcdfont.h"
+
+namespace Adafruit
+{
+
+
 
 // Many (but maybe not all) non-AVR board installs define macros
 // for compatibility with existing PROGMEM-reading AVR code.
 // Do our own checks and defines here for good measure...
 
 #ifndef pgm_read_byte
- #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+#define pgm_read_byte(addr) (* ((unsigned char *)(addr)) )
 #endif
 #ifndef pgm_read_word
  #define pgm_read_word(addr) (*(const unsigned short *)(addr))
 #endif
 #ifndef pgm_read_dword
- #define pgm_read_dword(addr) (*(const unsigned long *)(addr))
+#define pgm_read_dword(addr) (*(const unsigned long *)(addr))
 #endif
 
 // Pointers are a peculiar case...typically 16-bit on AVR boards,
@@ -466,11 +478,8 @@ void Adafruit_GFX::drawXBitmap(int16_t x, int16_t y,
   }
 }
 
-#if ARDUINO >= 100
-size_t Adafruit_GFX::write(uint8_t c) {
-#else
-void Adafruit_GFX::write(uint8_t c) {
-#endif
+size_t Adafruit_GFX::write(uint8_t c)
+{
 
   if(!gfxFont) { // 'Classic' built-in font
 
@@ -516,9 +525,9 @@ void Adafruit_GFX::write(uint8_t c) {
     }
 
   }
-#if ARDUINO >= 100
+
   return 1;
-#endif
+
 }
 
 // Draw a character
@@ -568,6 +577,8 @@ void Adafruit_GFX::drawChar(int16_t x, int16_t y, unsigned char c,
              yo = pgm_read_byte(&glyph->yOffset);
     uint8_t  xx, yy, bits, bit = 0;
     int16_t  xo16, yo16;
+
+    xa++; // get rid of unused variable warning
 
     if(size > 1) {
       xo16 = xo;
@@ -1067,3 +1078,4 @@ void GFXcanvas16::fillScreen(uint16_t color) {
   }
 }
 
+}
