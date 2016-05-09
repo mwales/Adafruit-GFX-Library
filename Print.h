@@ -20,10 +20,10 @@
 #pragma once
 
 
-#include <inttypes.h>
-#include <stdio.h> // for size_t
+#include <cstdint>
+#include <cstdio> // for size_t
 #include <iostream>
-#include <string.h>
+#include <cstring>
 #include "AdafruitCommon.h"
 
 namespace Adafruit

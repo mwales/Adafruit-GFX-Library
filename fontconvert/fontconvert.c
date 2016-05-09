@@ -17,9 +17,9 @@ Keep 7-bit fonts around as an option in that case, more compact.
 See notes at end for glyph nomenclature & other tidbits.
 */
 
-#include <stdio.h>
-#include <ctype.h>
-#include <stdint.h>
+#include <cstdio>
+#include <cctype>
+#include <cstdint>
 #include <ft2build.h>
 #include FT_GLYPH_H
 #include "../gfxfont.h" // Adafruit_GFX font structures

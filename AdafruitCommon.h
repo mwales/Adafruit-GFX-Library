@@ -1,11 +1,13 @@
 #pragma once
 
-#include<stdint.h>
 #include<cstddef>
-#include<time.h>
-#include<stdlib.h>
-#include<algorithm>
 #include<iostream>
+#include<cstdio>
+#include<cstdint>
+#include<time.h>
+#include<ctime>
+#include<cstdlib>
+#include<algorithm>
 
 namespace Adafruit
 {
