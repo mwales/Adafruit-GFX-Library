@@ -29,14 +29,15 @@
 namespace Adafruit
 {
 
-#define DEC 10
-#define HEX 16
-#define OCT 8
-#define BIN 2
 
+const int DEC = 10;
+const int HEX = 16;
+const int OCT = 8;
+const int BIN = 2;
 
 class Print
 {
+
   private:
     int write_error;
     size_t printNumber(unsigned long, uint8_t);
@@ -53,17 +54,26 @@ class Print
   
     virtual size_t write(uint8_t) = 0;
 
-    size_t write(const char *str)
+
+    inline size_t write(const uint8_t *buffer, size_t size)
+    {
+       int i = 0;
+       while(size > i)
+       {
+         write(buffer[i++]);
+       }
+    }
+
+    inline size_t write(const char *buffer, size_t size) {
+      return write((const uint8_t *)buffer, size);
+    }
+    
+    inline size_t write(const char *str)
     {
       if (str == NULL) return 0;
       return write((const uint8_t *)str, strlen(str));
     }
 
-    virtual size_t write(const uint8_t *buffer, size_t size);
-    size_t write(const char *buffer, size_t size) {
-      return write((const uint8_t *)buffer, size);
-    }
-    
     size_t print(const __FlashStringHelper *);
     size_t print(const String &);
     size_t print(const char[]);
