@@ -57,11 +57,13 @@ class Print
 
     inline size_t write(const uint8_t *buffer, size_t size)
     {
-       int i = 0;
+       unsigned int i = 0;
        while(size > i)
        {
          write(buffer[i++]);
        }
+
+       return i;
     }
 
     inline size_t write(const char *buffer, size_t size) {
