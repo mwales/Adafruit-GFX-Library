@@ -8,6 +8,7 @@
  #include "WProgram.h"
 #endif
 
+#include <stdint.h>
 #include "AdafruitCommon.h"
 #include "gfxfont.h"
 #include "Print.h"
